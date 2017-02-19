@@ -1,0 +1,27 @@
+{
+  "name": "rpg",
+  "version": "1.0.0",
+  "description": "Template of RPG game with use of objects constructors, methods and prototype inheritance",
+  "main": "src\\index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mif83/RPG.git"
+  },
+  "keywords": [
+    "objects",
+    "ES6",
+    "prototype"
+  ],
+  "author": "Esipenko Dima",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mif83/RPG/issues"
+  },
+  "homepage": "https://github.com/mif83/RPG#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.22.0"
+  }
+}
