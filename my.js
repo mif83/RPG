@@ -73,11 +73,11 @@ CreateElf.prototype.shoot = (function(){
             countArrows = 0;
         }
         if (countArrows != 0)countArrows -= arrows;
-        var dam = arrows*5 - 0.1*distance;
+        var damage = arrows*5 - 0.1*distance;
         console.log(this);
-        console.log("Shooted " + arrows + " on " + distance + " meters, damage = " + (this.damage +dam));
+        console.log("Shooted " + arrows + " on " + distance + " meters, damage = " + (this.damage +damage));
 
-        return dam;
+        return damage;
 
     };
     sh.reload = function(){

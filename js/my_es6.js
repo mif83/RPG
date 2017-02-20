@@ -6,13 +6,19 @@ class BasicCharacter {
         this.hp = hp;
         this.power = power;
         this.damage = damage;
-        this.baseAp = baseAp;
+        this._baseAp = baseAp;
         this.ap = baseAp;
         this.speedWalk = speedWalk;
         this.defence = 0;
     }
-    walk(distance){
-        return distance / this.speedWalk;
+    walk(distance, forward){
+        let dist;
+        if(forward){
+            dist = distance - this.speedWalk;
+        } else {
+            dist = distance + this.speedWalk;
+        }
+        return dist;
     }
     run(distance){
         return distance / 3*this.speedWalk;
@@ -24,10 +30,28 @@ class BasicCharacter {
     block(){
         this.defence +=10;
     }
+    innerDamage(damage){
+        if (this.defence - damage < 0){
+            this.hp += this.defence - damage;
+            console.log(this);
+        } else {
+            console.log("My defense save me");
+        }
+        if(this.hp < 0){
+            console.log(`The ${this.__proto__.constructor.name} was killed`);
+            delete this;
+        }
+    }
+    hit(dictance){
+        if (this.ap < 5) return "have not action point for this action";
+        if (distance > 0) return console.log(`I can't hit my enemy, he is to far`);
+        this.ap -= 5;
+        return this.damage;
+    }
 }
 class Human extends BasicCharacter{
     constructor(){
-        super(80, 30, 10);
+        super(80, 30);
         this._buildCount = 0;
     };
     build (){
@@ -47,21 +71,25 @@ class Human extends BasicCharacter{
 }
 class Elf extends BasicCharacter{
     constructor(){
-        super(40,20,10);
-        this.arrows = 10;
+        super(40,20);
+        this._arrows = 10;
     };
     showArrows(){
-        return this.arrows;
+        return this._arrows;
     };
-    shoot(distance, goal){
-        if (this.ap < 10) return "have not action point for this action";
+    shoot(distance){
+        //debugger;
+        if (this.ap < 5) return "have not action point for this action";
         this.ap -= 5;
-
+        // maximum distance 90m,  in the 10m and < maximum damage this.damage + arrow damage(5)
+        let baseDistance = distance - 10;
+        let curentDamage = baseDistance <= 0 ? this.damage + 5 : (this.damage + 5) - (this.damage + 5)*(baseDistance*1.23)/100 ;
+        // 1.23 - it step from 0 to 81
+    return curentDamage;
     };
 }
-let basic = new BasicCharacter;
 let hum = new Human;
 let elf = new Elf;
-console.log(basic);
+
 console.log(hum);
 console.log(elf);
