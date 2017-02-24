@@ -24,7 +24,7 @@ var BasicCharacter = function () {
         this.hp = hp;
         this.power = power;
         this.damage = damage;
-        this.baseAp = baseAp;
+        this._baseAp = baseAp;
         this.ap = baseAp;
         this.speedWalk = speedWalk;
         this.defence = 0;
@@ -32,8 +32,14 @@ var BasicCharacter = function () {
 
     _createClass(BasicCharacter, [{
         key: "walk",
-        value: function walk(distance) {
-            return distance / this.speedWalk;
+        value: function walk(distance, forward) {
+            var dist = void 0;
+            if (forward) {
+                dist = distance - this.speedWalk;
+            } else {
+                dist = distance + this.speedWalk;
+            }
+            return dist;
         }
     }, {
         key: "run",
@@ -51,6 +57,28 @@ var BasicCharacter = function () {
         value: function block() {
             this.defence += 10;
         }
+    }, {
+        key: "innerDamage",
+        value: function innerDamage(damage) {
+            if (this.defence - damage < 0) {
+                this.hp += this.defence - damage;
+                console.log(this);
+            } else {
+                console.log("My defense save me");
+            }
+            if (this.hp < 0) {
+                console.log("The " + this.__proto__.constructor.name + " was killed");
+                delete this;
+            }
+        }
+    }, {
+        key: "hit",
+        value: function hit(dictance) {
+            if (this.ap < 5) return "have not action point for this action";
+            if (distance > 0) return console.log("I can't hit my enemy, he is to far");
+            this.ap -= 5;
+            return this.damage;
+        }
     }]);
 
     return BasicCharacter;
@@ -62,7 +90,7 @@ var Human = function (_BasicCharacter) {
     function Human() {
         _classCallCheck(this, Human);
 
-        var _this = _possibleConstructorReturn(this, (Human.__proto__ || Object.getPrototypeOf(Human)).call(this, 80, 30, 10));
+        var _this = _possibleConstructorReturn(this, (Human.__proto__ || Object.getPrototypeOf(Human)).call(this, 80, 30));
 
         _this._buildCount = 0;
         return _this;
@@ -93,32 +121,37 @@ var Elf = function (_BasicCharacter2) {
     function Elf() {
         _classCallCheck(this, Elf);
 
-        var _this2 = _possibleConstructorReturn(this, (Elf.__proto__ || Object.getPrototypeOf(Elf)).call(this, 40, 20, 10));
+        var _this2 = _possibleConstructorReturn(this, (Elf.__proto__ || Object.getPrototypeOf(Elf)).call(this, 40, 20));
 
-        _this2.arrows = 10;
+        _this2._arrows = 10;
         return _this2;
     }
 
     _createClass(Elf, [{
         key: "showArrows",
         value: function showArrows() {
-            return this.arrows;
+            return this._arrows;
         }
     }, {
         key: "shoot",
-        value: function shoot(distance, goal) {
-            if (this.ap < 10) return "have not action point for this action";
+        value: function shoot(distance) {
+            //debugger;
+            if (this.ap < 5) return "have not action point for this action";
             this.ap -= 5;
+            // maximum distance 90m,  in the 10m and < maximum damage this.damage + arrow damage(5)
+            var baseDistance = distance - 10;
+            var curentDamage = baseDistance <= 0 ? this.damage + 5 : this.damage + 5 - (this.damage + 5) * (baseDistance * 1.23) / 100;
+            // 1.23 - it step from 0 to 81
+            return curentDamage;
         }
     }]);
 
     return Elf;
 }(BasicCharacter);
 
-var basic = new BasicCharacter();
 var hum = new Human();
 var elf = new Elf();
-console.log(basic);
+
 console.log(hum);
 console.log(elf);
 //# sourceMappingURL=my_es6.js.map
