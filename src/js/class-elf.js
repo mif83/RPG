@@ -7,6 +7,7 @@ export default class Elf extends BasicCharacter{
     constructor(){
         super(40,20);
         this._arrows = 10;
+
     };
     showArrows(){
         return this._arrows;

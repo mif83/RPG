@@ -3,12 +3,17 @@ module.exports = {
     output: {
         path: __dirname + "/js",
         filename: 'my.js',
-        library: 'my_es6'
+        library: 'my'
     },
 
     module: {
         loaders: [
             { test: /\.js$/, loader: "babel-loader?presets[]=es2015" }
         ]
-    }
+    },
+    watch:true,
+    watchOptions: {
+        aggregateTimeout:100
+    },
+    devtool: 'inline-source-map'
 };
