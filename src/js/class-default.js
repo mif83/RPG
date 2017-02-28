@@ -11,8 +11,8 @@ export default class BasicCharacter {
         this.speedWalk = speedWalk;
         this.defence = 0;
     };
-    actionWalk(distance, forward){
-        if (this.ap < 10) {
+    actionWalk(forward){
+        if (this.ap < 5) {
             console.log(`have not action point for this action,\n${this.constructor.name} have ${this.ap} action points`);
             return 0;
         }
@@ -20,12 +20,13 @@ export default class BasicCharacter {
         let dist;
         if(forward){
             dist = distance - this.speedWalk;
+            if (dist < 0) dist = 0;
         } else {
             dist = distance + this.speedWalk;
         }
         return dist;
     };
-    actionRun(distance, forward){
+    actionRun(forward){
         if (this.ap < 10) {
             console.log(`have not action point for this action,\n${this.constructor.name} have ${this.ap} action points`);
             return 0;

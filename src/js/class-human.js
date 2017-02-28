@@ -10,7 +10,10 @@ export default class Human extends BasicCharacter{
         this._buildCount = 0;
     };
     build (){
-        if (this.ap < 10) return "have not action point for this action";
+        if (this.ap < 10) {
+            console.log(`have not action point for this action,\n${this.constructor.name} have ${this.ap} action points`);
+            return false;
+        }
         this.ap -= 10;
         if (this._buildCount < 3){
             this.hp +=10;
@@ -21,6 +24,23 @@ export default class Human extends BasicCharacter{
         }
         return this._buildCount;
     };
+    action(enemy){
+        if(enemy.constructor.name === "Elf" ){
+            if (this.hp < 30 || distance >= 91){
+                this.build();
+            }
+            if (distance < 50 && distance !== 0 ){
+                distance = this.actionRun(true);
+            }
+            if (distance > 70 && distance < 91){
+                distance = this.actionRun(false);
+            }
+            if(distance === 0){
+                this.hit();
+                this.hit();
+            }
 
+        }
+    };
 
 }

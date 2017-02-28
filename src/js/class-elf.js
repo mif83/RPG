@@ -15,7 +15,7 @@ export default class Elf extends BasicCharacter{
     actionShoot(distance = 0){
         if (this.ap < 5) {
             console.log(`have not action point for this action,\n${this.constructor.name} have ${this.ap} action points`);
-            return 0;
+            return false;
         }
         this.ap -= 5;
         // maximum distance 90m,  in the 10m and < maximum damage this.damage + arrow damage(5)

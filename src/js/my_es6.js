@@ -11,7 +11,9 @@ export let elf = new Elf;
 console.log(hum);
 console.log(elf);
 
+let distance = 35;
 function fight(war1, war2) {
+    console.log(distance);
     console.log(war1);
 }
 
