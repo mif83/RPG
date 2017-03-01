@@ -3,6 +3,7 @@
  */
 import BasicCharacter from './class-default';
 
+
 export default class Elf extends BasicCharacter{
     constructor(){
         super(40,20);

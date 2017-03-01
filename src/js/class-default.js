@@ -71,6 +71,7 @@ export default class BasicCharacter {
         }
     }
     actionHit(distance = 0){
+        console.log(`${this} hit`);
         if (this.ap < 5) {
             console.log(`have not action point for this action,\n${this.constructor.name} have ${this.ap} action points`);
             return false;
