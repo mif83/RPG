@@ -3,7 +3,6 @@
  */
 import BasicCharacter from './class-default';
 
-
 export default class Human extends BasicCharacter{
     constructor(){
         super(80, 30);
@@ -25,6 +24,8 @@ export default class Human extends BasicCharacter{
         return this._buildCount;
     };
     action(enemy){
+        console.log(distance);
+        let direct = false;
         if(enemy.constructor.name === "Elf" ){
             if (this.hp < 30 || distance >= 91){
                 this.build();
@@ -32,12 +33,16 @@ export default class Human extends BasicCharacter{
             if (distance < 50 && distance !== 0 ){
                 distance = this.actionRun(true);
             }
+            if (enemy._arrows === 0 && distance !== 0){
+                distance = this.actionRun(true);
+                direct = true;
+            }
             if (distance > 70 && distance < 91){
                 distance = this.actionRun(false);
             }
             if(distance === 0){
-                this.hit();
-                this.hit();
+                enemy.innerDamage(this.actionHit());
+                enemy.innerDamage(this.actionHit());
             }
 
         }
