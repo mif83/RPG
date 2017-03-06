@@ -16,5 +16,4 @@ function fight(war1, war2) {
     console.log(distance);
     console.log(war1);
 }
-
 fight(hum, elf);
